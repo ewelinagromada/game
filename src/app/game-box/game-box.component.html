@@ -1,0 +1,61 @@
+<div class="my-5">
+    <div class="btn-group">
+        <label class="btn btn-secondary" [(ngModel)]="gameMode"
+                btnRadio="uc" tabindex="0" role="button">User</label>
+        <label class="btn btn-secondary" [(ngModel)]="gameMode"
+                btnRadio="cc" tabindex="0" role="button">Computer</label>
+    </div>
+    <h3 class="text-center">ROUND {{ roundNumber}}</h3>
+    <div *ngIf="showWin && gameMode === 'uc'" class="d-flex justify-content-center">
+        <img  src="http://pluspng.com/img-png/win-png-win-clipart-win-png-pjjcaw-clipart-400.png" class="position-absolute" style="z-index: 2" width="40%" />
+    </div>
+    <div *ngIf="showLose && gameMode === 'uc'" class="d-flex justify-content-center">
+        <img  src="https://pngimage.net/wp-content/uploads/2018/06/lose-png-7.png" class="position-absolute bg-white" style="z-index: 2" width="40%" />
+    </div>
+    <div *ngIf="showDraw && gameMode === 'uc'" class="d-flex justify-content-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzf7qcB6rNld6Lhg8EgUza5AF4Q7Zvlw-vAkqBvkvk3zviiYCa&s" class="position-absolute" style="z-index: 2" width="20%" />
+        </div>
+    <div class="row py-5" style="height: 300px">
+        <div class="col-4 text-center">
+            <p class="font-weight-bold">WIN</p>
+            <p> {{ results.userWins ? results.userWins : 0 }} </p>
+            <div>
+                <img *ngIf="selectedOption && selectedOption.url; else default" [src]="selectedOption.url" width="80%"/>
+                <ng-template #default>
+                    <img [src]="gameOptions[0].url" width="80%"/>
+                </ng-template>
+                <div class="py-2 text-white bg-dark">
+                    Player 1
+                </div> 
+                <div *ngIf="gameMode === 'uc'">
+                    <div class="py-1">
+                        <p>Select your option</p>
+                    </div>
+                    <span *ngFor="let option of gameOptions" >
+                        <img [src]="option.url" (click)="selectOption(option)" style="cursor: pointer" width="30px"/>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 text-center">
+                <p class="font-weight-bold">DRAWS</p>
+                <p>{{ results.draws }}</p> 
+                <div *ngIf="gameMode === 'cc'" class="mt-5">
+                    <button  type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="playCC()">Play</button>
+                </div>
+        </div>
+        <div class="col-4 text-center">
+            <p class="font-weight-bold">WIN</p>
+            <p>{{ results.computerWins }}</p>
+            <div>
+                <img *ngIf="selectedComputerOption && selectedComputerOption.url; else default" [src]="selectedComputerOption.url" width="80%"/>
+            </div>
+            <div class="py-2 text-white bg-dark">
+                Player 2
+            </div>
+        </div>
+        <nav class="pl-3 pt-5">
+            <a routerLink="/results" [state]="{ data: roundResults, points1Total: this.results.userWins, points2Total: this.results.computerWins, pointsDrawTotal: this.results.draws}">Results</a>
+        </nav>
+    </div>       
+</div>

@@ -1,0 +1,24 @@
+<div class="my-5">
+    <table class="table">
+        <thead class="thead-dark"> 
+            <tr>
+            <th scope="col">#Round</th>
+            <th scope="col">Player 1</th>
+            <th scope="col">Player 2</th>
+            <th scope="col">Draw</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let result of results">
+            <th scope="row">{{ result.roundNumber }}</th>
+            <td>{{ result.playerOneResult }}</td>
+            <td>{{ result.playerTwoResult }}</td>
+            <td>{{ result.draws }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <nav>
+        <a routerLink="/" [state]="{ data: results, points1Total: p1Total, points2Total: p2Total, pointsDrawTotal: pDTotal }">Go back to game</a>
+    </nav>
+</div>
